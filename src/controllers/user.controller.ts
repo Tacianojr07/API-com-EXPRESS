@@ -1,6 +1,6 @@
 import{userValidation} from "../validations/user.validation"
 import bcrypt from "bcrypt";
-import { createUser, getAll,getById, updateUser } from "../repositorys/user.respository"
+import { createUser, getAll,getById, updateUser,deleteUser } from "../repositorys/user.respository"
 import { Request, Response } from "express";
 
 export const create = async(req: Request, res: Response) => {
@@ -30,7 +30,7 @@ export const get = async(req: Request, res: Response) => {
 export const getId = async(req:Request, res: Response) => {
     try {
         const user = await getById(Number(req.params.id));
-        res.status(200), res.send(user)
+        res.status(200), res.send(user);
     } catch (e) {
         res.status(400), res.send(e);
         console.log(e)
@@ -40,10 +40,19 @@ export const getId = async(req:Request, res: Response) => {
 export const updateId = async(req:Request, res:Response) => {
     try {
         const user = await updateUser(Number(req.params.id), req.body)
-        res.status(200), res.send(user)
+        res.status(200), res.send(user);
     } catch (e) {
-        res.status(400), res.send(e)
+        res.status(400), res.send(e);
         console.log(e);
     }
 
 };
+
+export const deleted = async(req: Request, res:Response) => {
+    try {
+        await deleteUser(Number(req.params.id))
+        res.status(200), res.send("Delectd sucefully");
+    } catch (e) {
+        res.status(400), res.send(e);
+    }
+}
