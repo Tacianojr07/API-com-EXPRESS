@@ -1,6 +1,6 @@
 import{userValidation} from "../validations/user.validation"
 import bcrypt from "bcrypt";
-import { createUser, getAll,getById } from "../repositorys/user.respository"
+import { createUser, getAll,getById, updateUser } from "../repositorys/user.respository"
 import { Request, Response } from "express";
 
 export const create = async(req: Request, res: Response) => {
@@ -35,4 +35,15 @@ export const getId = async(req:Request, res: Response) => {
         res.status(400), res.send(e);
         console.log(e)
     }
-}
+};
+
+export const updateId = async(req:Request, res:Response) => {
+    try {
+        const user = await updateUser(Number(req.params.id), req.body)
+        res.status(200), res.send(user)
+    } catch (e) {
+        res.status(400), res.send(e)
+        console.log(e);
+    }
+
+};
