@@ -27,6 +27,15 @@ export const getAll = async() => {
             createdAt: true,
             updatedAt: true
         }
-    })
-    return users
+    });
+    return users;
+};
+
+export const getById = async(id:number) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            id
+        }
+    });
+    return user;
 };
