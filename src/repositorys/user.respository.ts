@@ -77,6 +77,4 @@ export const deleteUser = async(id:number) => {
         }
     });
     return
-};
-
-
+}
