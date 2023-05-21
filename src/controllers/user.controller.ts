@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 export const create = async(req: Request, res: Response) => {
     try {
         await userValidation.validate(req.body);
-
+        
         const hashPassword = await bcrypt.hash(req.body.passwrod,10);
         req.body.passwrod = hashPassword;
         const user = await createUser(req.body);
@@ -51,7 +51,7 @@ export const updateId = async(req:Request, res:Response) => {
 export const deleted = async(req: Request, res:Response) => {
     try {
         await deleteUser(Number(req.params.id))
-        res.status(200), res.send("Delectd sucefully");
+        res.status(200), res.send("Delectd");
     } catch (e) {
         res.status(400), res.send(e);
     }
